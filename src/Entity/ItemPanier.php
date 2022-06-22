@@ -19,6 +19,8 @@ class ItemPanier
     #[ORM\ManyToOne(targetEntity: Panier::class, inversedBy: 'itemPaniers')]
     private $panier;
 
+    //TO DO : RELATIONS AVEC LES PRODUITS
+
     public function getId(): ?int
     {
         return $this->id;
