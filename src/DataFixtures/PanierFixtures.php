@@ -9,7 +9,7 @@ use Doctrine\Persistence\ObjectManager;
 use App\DataFixtures\ItemPanierFixtures;
 use App\DataFixtures\UserFixtures;
 
-class ItemPanierFixtures extends Fixture implements DependentFixtureInterface
+class PanierFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
