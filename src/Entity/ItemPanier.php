@@ -19,6 +19,10 @@ class ItemPanier
     #[ORM\ManyToOne(targetEntity: Panier::class, inversedBy: 'itemPaniers')]
     private $panier;
 
+    #[ORM\OneToOne(targetEntity: Produit::class, cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private $produit;
+
     //TO DO : RELATIONS AVEC LES PRODUITS
 
     public function getId(): ?int
@@ -46,6 +50,18 @@ class ItemPanier
     public function setPanier(?Panier $panier): self
     {
         $this->panier = $panier;
+
+        return $this;
+    }
+
+    public function getProduit(): ?Produit
+    {
+        return $this->produit;
+    }
+
+    public function setProduit(Produit $produit): self
+    {
+        $this->produit = $produit;
 
         return $this;
     }

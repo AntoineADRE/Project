@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% extends 'base.html.twig' %}
+{% block body %}
+	<div class="container-fluid">
+		<h1>Votre Panier</h1>
+
+		{% if items | length > 0 %}
+			<table class="table">
+            <thead>
+				<tr>
+					<th>Produit</th>
+					<th>Prix</th>
+					<th>Quantité</th>
+					<th>Total</th>
+				</tr>
+                </thead>
+                <tbody> 
+                    {% for item in items %}
+                        <tr>
+                            <td>{{ item.produit.nom }}</td>
+                            <td>{{ item.produit.prix }}</td>
+                            <td>{{ item.quantite }}</td>
+                            <td>{{ item.produit.prix * item.quantite }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+			</table>
+		{% else %}
+			<p>Votre panier est vide</p>
+		{% endif %}
+	</div>
+{% endblock %}

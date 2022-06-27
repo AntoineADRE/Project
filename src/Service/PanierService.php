@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Repository\ProduitRepository;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class PanierService
@@ -26,13 +27,16 @@ class PanierService
         $this->session->set('panier', $panier);
     }
 
-    public function supprimerProduit(int $id)
+    public function supprimeProduit(int $id)
     {
-        //TO DO 
-        //TEST
+        $panier = $this->session->get('panier', []);
+        if (!empty($panier[$id])) {
+            unset($panier[$id]);
+        }
+        $this->session->set('panier', $panier);
     }
 
-    public function montrePanier()
+    public function getPanier()
     {
         $panier = $this->session->get('panier', []);
         $panierAvecDonnees = [];
@@ -45,5 +49,14 @@ class PanierService
 
 
         return $panierAvecDonnees;
+    }
+
+    public function getTotal(): float
+    {
+        $total = 0;
+        foreach ($this->getPanier() as $item) {
+            $total += $item['produit']->getPrix() * $item['quantite'];
+        }
+        return $total;
     }
 }
