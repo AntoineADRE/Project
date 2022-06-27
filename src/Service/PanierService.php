@@ -28,7 +28,8 @@ class PanierService
 
     public function supprimerProduit(int $id)
     {
-        //TO DO
+        //TO DO 
+        //TEST
     }
 
     public function montrePanier()
