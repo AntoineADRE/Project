@@ -9,11 +9,13 @@ class PanierService
 {
     protected $session;
     protected $produitRepository;
+    protected $stripeService;
 
-    public function __construct(SessionInterface $session, ProduitRepository $produitRepository)
+    public function __construct(SessionInterface $session, ProduitRepository $produitRepository, StripeService $stripeService)
     {
         $this->session = $session;
         $this->produitRepository = $produitRepository;
+        $this->stripeService = $stripeService;
     }
 
     public function ajouteProduit(int $id)
@@ -59,4 +61,27 @@ class PanierService
         }
         return $total;
     }
+
+    public function intentSecret(){
+        $intent = $this->stripeService->paymentIntent($this->getTotal());
+    }
+
+    public function stripe(array $stripeParameter){
+        $resource =  null;
+    $data = $this->stripeService->payment($this->getTotal(), 'eur', $this->getPanier(), $stripeParameter);
+
+    if($data){
+        $resource = [
+            'stripeBrand'=>$data['charges']['data'][0]['payment_method_details']['card']['brand'],
+        'stripeLast4'=>$data['charges']['data'][0]['payment_method_details']['card']['last4'],
+        'stripeId'=>$data['charges']['data']['id'],
+        'stripeStatus'=>$data['charges']['data'][0]['status'],
+        'stripeToken'=>$data['client_secret'],
+        ];
+        
+    }
+    return $resource;
+    }
+
+    //TO DO
 }
