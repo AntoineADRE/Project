@@ -39,6 +39,24 @@ class ProduitRepository extends ServiceEntityRepository
         }
     }
 
+      /**
+     * @return Produit[]
+     */
+    
+    public function findOneByIdJoinedToCategory(int $produitId): ?Produit
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT p, c
+            FROM App\Entity\Produit p
+            INNER JOIN p.categorie c
+            WHERE p.id = :id'
+        )->setParameter('id', $produitId);
+
+        return $query->getOneOrNullResult();
+    }
+
 //    /**
 //     * @return Produit[] Returns an array of Produit objects
 //     */
