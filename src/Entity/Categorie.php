@@ -21,9 +21,13 @@ class Categorie
     #[ORM\ManyToMany(targetEntity: SousCategorie::class, inversedBy: 'categories')]
     private $sousCateg;
 
+    #[ORM\OneToMany(mappedBy: 'categorie', targetEntity: Produit::class)]
+    private $produits;
+
     public function __construct()
     {
         $this->sousCateg = new ArrayCollection();
+        $this->produits = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -63,6 +67,36 @@ class Categorie
     public function removeSousCateg(SousCategorie $sousCateg): self
     {
         $this->sousCateg->removeElement($sousCateg);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Produit>
+     */
+    public function getProduits(): Collection
+    {
+        return $this->produits;
+    }
+
+    public function addProduit(Produit $produit): self
+    {
+        if (!$this->produits->contains($produit)) {
+            $this->produits[] = $produit;
+            $produit->setCategorie($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProduit(Produit $produit): self
+    {
+        if ($this->produits->removeElement($produit)) {
+            // set the owning side to null (unless already changed)
+            if ($produit->getCategorie() === $this) {
+                $produit->setCategorie(null);
+            }
+        }
 
         return $this;
     }
