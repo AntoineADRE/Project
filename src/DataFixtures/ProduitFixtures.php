@@ -21,10 +21,8 @@ class ProduitFixtures extends Fixture implements DependentFixtureInterface
             ->setPrix(25.99)
             ->setTva(14)
             ->setCodeBarre("8152124125968")
-            ->setDateSortie(\DateTime::createFromFormat('d-m-y H:i', '02-17-1999 08:54'))
+            ->setDateSortie('02-17-1999 08:54')
             ->setQuantite(50)
-            ->addAuteur($this->getReference("auteur1"))
-            ->addImage($this->getReference("image1"))
             ->setCategorie($this->getReference("categorie1"));
 
 
@@ -36,8 +34,7 @@ class ProduitFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
             CategorieFixtures::class,
-            AuteurFixtures::class,
-            ImageFixtures::class            
+              
         ];
     }
 }

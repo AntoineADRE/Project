@@ -6,6 +6,7 @@ use App\Repository\PanierRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: PanierRepository::class)]
 class Panier
@@ -15,7 +16,7 @@ class Panier
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'datetime')]
+
     private $date;
 
     #[ORM\OneToMany(mappedBy: 'panier', targetEntity: ItemPanier::class)]
@@ -33,12 +34,12 @@ class Panier
         return $this->id;
     }
 
-    public function getDate(): ?\DateTimeInterface
+    public function getDate(): ?string
     {
         return $this->date;
     }
 
-    public function setDate(\DateTimeInterface $date): self
+    public function setDate(string $date): self
     {
         $this->date = $date;
 

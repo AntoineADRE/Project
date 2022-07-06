@@ -3,9 +3,10 @@
 namespace App\DataFixtures;
 use App\Entity\Auteur;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+use Doctrine\Persistence\ObjectManager;
 use App\DataFixtures\ProduitFixtures;
+
 
 class AuteurFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -16,6 +17,7 @@ class AuteurFixtures extends Fixture implements DependentFixtureInterface
             ->setNom("Sapkowski")
             ->setPrenom("Andrzej ")
             ->addEcrit($this->getReference("produit1"));
+            ;
             
         $this->addReference('auteur1', $auteur);
         $manager->persist($auteur);
@@ -25,7 +27,7 @@ class AuteurFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
             ProduitFixtures::class,
-                     
+              
         ];
     }
 }

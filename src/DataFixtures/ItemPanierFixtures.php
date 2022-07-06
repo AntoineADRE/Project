@@ -17,19 +17,11 @@ class ItemPanierFixtures extends Fixture implements DependentFixtureInterface
 
         $itemPanier = new ItemPanier();
         $itemPanier
-            ->setProduit($this->getReference('?'))
+            ->setProduit($this->getReference('produit1'))
             ->setPanier($this->getReference('panier1'))
             ->setQuantite(2);
 
         $this->addReference('itemPanier1', $itemPanier);
-        $manager->persist($itemPanier);
-
-        $itemPanier = new ItemPanier();
-        $itemPanier
-            ->setProduit($this->getReference('?'))
-            ->setPanier($this->getReference('panier1'))
-            ->setQuantite(1);
-        $this->addReference('itemPanier2', $itemPanier);
         $manager->persist($itemPanier);
         $manager->flush();
     }
