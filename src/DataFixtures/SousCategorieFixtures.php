@@ -4,9 +4,9 @@ namespace App\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use App\DataFixtures\CategorieFixtures;
 use App\Entity\SousCategorie;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 class SousCategorieFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -16,6 +16,7 @@ class SousCategorieFixtures extends Fixture implements DependentFixtureInterface
         $sousCateg 
             ->setLibelle('Fantasy')
             ->addCategory($this->getReference('categorie1'));
+          
         $this->addReference('sousCateg1',$sousCateg);
         
         $manager->persist($sousCateg);
@@ -26,6 +27,7 @@ class SousCategorieFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
             CategorieFixtures::class,
+              
         ];
     }
 }

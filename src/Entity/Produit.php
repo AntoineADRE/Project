@@ -30,7 +30,7 @@ class Produit
     #[ORM\Column(type: 'string', length: 255)]
     private $code_barre;
 
-    #[ORM\Column(type: 'date')]
+    #[ORM\Column(type: 'string', length: 255)]
     private $date_sortie;
 
     #[ORM\Column(type: 'integer')]
@@ -44,6 +44,9 @@ class Produit
 
     #[ORM\ManyToOne(targetEntity: Categorie::class, inversedBy: 'produits')]
     private $categorie;
+
+    #[ORM\OneToOne(targetEntity: ItemPanier::class, cascade: ['persist', 'remove'])]
+    private $itemPanier;
 
     public function __construct()
     {
@@ -116,12 +119,12 @@ class Produit
         return $this;
     }
 
-    public function getDateSortie(): ?\DateTimeInterface
+    public function getDateSortie(): ?string
     {
         return $this->date_sortie;
     }
 
-    public function setDateSortie(\DateTimeInterface $date_sortie): self
+    public function setDateSortie(string $date_sortie): self
     {
         $this->date_sortie = $date_sortie;
 
@@ -205,6 +208,18 @@ class Produit
     public function setCategorie(?Categorie $categorie): self
     {
         $this->categorie = $categorie;
+
+        return $this;
+    }
+
+    public function getItemPanier(): ?ItemPanier
+    {
+        return $this->itemPanier;
+    }
+
+    public function setItemPanier(?ItemPanier $itemPanier): self
+    {
+        $this->itemPanier = $itemPanier;
 
         return $this;
     }

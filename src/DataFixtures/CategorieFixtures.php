@@ -5,18 +5,16 @@ namespace App\DataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use App\Entity\Categorie;
-use Doctrine\Common\DataFixtures\DependentFixtureInterface;
-use App\DataFixtures\SousCategorieFixtures;
 
 
-class CategorieFixtures extends Fixture implements DependentFixtureInterface
+
+class CategorieFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
        $categorie = new Categorie();
        $categorie 
-            ->setNom('Roman')
-            ->addSousCateg($this->getReference('sousCateg1'));
+            ->setNom('Roman');
 
         $this->addReference('categorie1',$categorie);
         
@@ -24,11 +22,5 @@ class CategorieFixtures extends Fixture implements DependentFixtureInterface
         $manager->flush();
     }
 
-    public function getDependencies()
-    {
-        return [
-            SousCategorieFixtures::class,
-            
-        ];
-    }
+
 }
