@@ -1,0 +1,48 @@
+<nav class="navbar navbar-expand-lg bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Votre logo</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link" href="{{path('app_homepage')}}">Accueil</a>
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        <a class="nav-link" href="{{path('app_logout')}}">Déconnexion</a>
+        {% else %}
+        <a class="nav-link" href="{{ path('app_login')}}">Se connecter</a>
+        <a class="nav-link" href="{{ path('app_register')}}">S'inscrire</a>
+        {% endif %}
+        {% for categorie in categories %}
+          <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="" id="{{ categorie.nom }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+           {{ categorie.nom }}
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="{{ categorie.nom }}">
+            {% for souscateg in categorie.souscateg %}
+            <li><a class="dropdown-item" href="#">{{ souscateg.libelle }}</a></li>
+            {% endfor %}
+          </ul>
+          </li>
+        
+        {% endfor %}
+         {% if is_granted('ROLE_ADMIN') %}
+            <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Admin
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="adminDropdown">
+            <li><a class="dropdown-item" href="#">Paramètres</a></li>
+            <li><a class="dropdown-item" href="#">Vos produits</a></li>
+            <li><a class="dropdown-item" href="#">Vos catégories</a></li>
+          </ul>
+          </li>
+
+        {% endif %}
+        {# {{ render(controller(
+        'App\Controller\SearchController::searchBar'
+ )) }} #}
+      </div>
+    </div>
+  </div>
+</nav>

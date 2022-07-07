@@ -8,4 +8,7 @@
 {% block body %}
 <h1>Nom du magasin</h1>
 <p>Bienvenue dans notre boutique</p>
+{% if is_granted('ROLE_ADMIN') %}
+<p>Vous êtes admin</p>
+{% endif %}
 {% endblock %}
