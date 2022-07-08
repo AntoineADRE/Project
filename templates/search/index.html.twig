@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+{% if app.request.method == 'POST' %}
+    <div>
+        {% if (produit | length == 0) and (auteur | length == 0) and (auteurs | length == 0) %}
+            <h4>Aucun résulat pour votre recherche.</h4>
+           {% else %}
+               <h3 class="mt-3">Vos résulats de recherche :</h3>
+               {% for produit in produit  %}
+                   <div class="mt-3 p-3 bg-light border rounded">
+                       {{produit.nom}}
+                       </br>
+                       {{produit.description}} 
+                      </br>
+                       {% endfor %}
+                       {% for auteur in auteur %}
+                   <div class="mt-3 p-3 bg-light border rounded">
+                       {{auteur.prenom}}
+                       </br>
+                       {{auteur.nom}}
+                      </br>
+                      {% endfor %}
+                       {% for auteurs in auteurs %}
+                   <div class="mt-3 p-3 bg-light border rounded">
+                       {{auteurs.prenom}}
+                       </br>
+                       {{auteurs.nom}}
+                      </br>
+                    {# TO DO : ajouter les produits en fonction des auteurs #}
+                   </div>
+                    
+             
+              {% endfor %}
+              {% endif %}
+          {# {% endif %}
+     {% if auteur | length == 0 %}
+            <h4>Aucun résulat pour votre recherche.</h4>
+           {% else %}
+               <h3 class="mt-3">Vos résulats de recherche :</h3>
+               {% for auteur in auteur %}
+                   <div class="mt-3 p-3 bg-light border rounded">
+                       {{auteur.prenom}}
+                       </br>
+                       {{auteur.nom}}
+                      
+                       
+                              
+                       
+                   </div>
+              {% endfor %}
+          {% endif %} #}
+
+     </div>
+{% endif %}
+{% endblock %}

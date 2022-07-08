@@ -39,6 +39,47 @@ class AuteurRepository extends ServiceEntityRepository
         }
     }
 
+    public function findAuteurByFirstName(string $query)
+    {
+        $qb = $this->createQueryBuilder('auteur');
+                    
+        $qb
+            ->where(
+                $qb->expr()->andX(
+                    
+                        $qb->expr()->like('auteur.prenom', ':query')
+                        // $qb->expr()->like('produit.description', ':query'),
+                    )
+                    
+                )
+            
+            ->setParameter('query', '%' . $query . '%')
+        ;
+        return $qb
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findAuteurByLastName(string $query)
+    {
+        $qb = $this->createQueryBuilder('auteurs');
+                    
+        $qb
+            ->where(
+                $qb->expr()->andX(
+                    
+                        $qb->expr()->like('auteurs.nom', ':query')
+                        // $qb->expr()->like('produit.description', ':query'),
+                    )
+                    
+                )
+            
+            ->setParameter('query', '%' . $query . '%')
+        ;
+        return $qb
+            ->getQuery()
+            ->getResult();
+    }
 //    /**
 //     * @return Auteur[] Returns an array of Auteur objects
 //     */

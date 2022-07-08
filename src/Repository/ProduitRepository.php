@@ -45,6 +45,7 @@ class ProduitRepository extends ServiceEntityRepository
     
     public function findOneByIdJoinedToCategory(int $produitId): ?Produit
     {
+        //TO DO : Vérifier cette fonction de lien entre categ et souscateg
         $entityManager = $this->getEntityManager();
 
         $query = $entityManager->createQuery(
@@ -55,6 +56,27 @@ class ProduitRepository extends ServiceEntityRepository
         )->setParameter('id', $produitId);
 
         return $query->getOneOrNullResult();
+    }
+
+    public function findProduitByName(string $query)
+    {
+        $qb = $this->createQueryBuilder('produit');
+                    
+        $qb
+            ->where(
+                $qb->expr()->andX(
+                    
+                        $qb->expr()->like('produit.nom', ':query'),
+                        // $qb->expr()->like('produit.description', ':query'),
+                    )
+                    
+                )
+            
+            ->setParameter('query', '%' . $query . '%')
+        ;
+        return $qb
+            ->getQuery()
+            ->getResult();
     }
 
 //    /**
